@@ -29,7 +29,7 @@ public class EasyDraw : MonoBehaviour
         pic = GetComponent<Image>();
         selectedCanvas = GetComponent<RectTransform>();
         pix = brush.GetPixels();
-        CanvasInit();
+        //CanvasInit();
     }
 
     public void CanvasInit()
@@ -46,19 +46,20 @@ public class EasyDraw : MonoBehaviour
 
     public void DrawInit()
     {
-        if (pic.sprite == null || !inDrawMode)
-        {
-            pic.sprite = null;
-            if (canvas) Destroy(canvas);
-            GetComponent<LoadHomework>().DrawJSLayout();
-        }
-        else
-        {
+        if (!inDrawMode) return;
+        //if (pic.sprite == null)
+        //{
+        //    pic.sprite = null;
+        //    if (canvas) Destroy(canvas);
+        //    GetComponent<LoadHomework>().DrawJSLayout();
+        //}
+        //else
+        //{
             Vector2 pointer;
             Vector2 position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(selectedCanvas, position, Camera.main, out pointer))
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(selectedCanvas, position, null, out pointer))
                 lastPoint = new Vector2((int)pointer.x, (int)pointer.y);
-        }
+        //}
     }
 
     public void Draw()
@@ -66,16 +67,16 @@ public class EasyDraw : MonoBehaviour
         if (pic.sprite == null || !inDrawMode) return;
         Vector2 pointer;
         Vector2 position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(selectedCanvas, position, Camera.main, out pointer) &&
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(selectedCanvas, position, null, out pointer) &&
             (pointer.x >= 0 && pointer.x <= selectedCanvas.rect.width) &&
             (pointer.y >= 0 && pointer.y <= selectedCanvas.rect.height))
         {
+            Debug.Log(pointer);
             int x = (int)pointer.x;
             int y = (int)pointer.y;
             Vector2 point = lastPoint;
             float step = 1 / Mathf.Sqrt(Mathf.Pow(x - lastPoint.x, 2) + Mathf.Pow(y - lastPoint.y, 2));
             float currentStep = 0;
-            Debug.Log("Drawing");
             while ((int)point.x != x || (int)point.y != y)
             {
                 point = Vector2.Lerp(lastPoint, new Vector2(x, y), currentStep);

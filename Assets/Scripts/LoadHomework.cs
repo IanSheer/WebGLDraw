@@ -10,7 +10,7 @@ public class LoadHomework : MonoBehaviour
     private void Start()
     {
         homework = GetComponent<Image>();
-        //GetImage.GetImageFromUserAsync(gameObject.name, "ReceiveImage");
+        GetImage.GetImageFromUserAsync(gameObject.name, "ReceiveImage");
     }
 
     public void DrawJSLayout()
