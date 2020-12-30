@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Runtime.InteropServices;
 
 public class EasyDraw : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class EasyDraw : MonoBehaviour
     public Texture2D brush;
     public Sprite[] modeKeys;
     public Image drawKey;
+    public Image saveKey;
     private Color[] pix;
     private Color red = Color.red;
     private Texture2D canvas;
@@ -29,6 +31,7 @@ public class EasyDraw : MonoBehaviour
         pic = GetComponent<Image>();
         selectedCanvas = GetComponent<RectTransform>();
         pix = brush.GetPixels();
+        saveKey.gameObject.SetActive(false);
         //CanvasInit();
     }
 
@@ -65,6 +68,7 @@ public class EasyDraw : MonoBehaviour
     public void Draw()
     {
         if (pic.sprite == null || !inDrawMode) return;
+        if (!saveKey.gameObject.activeInHierarchy) saveKey.gameObject.SetActive(true);
         Vector2 pointer;
         Vector2 position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(selectedCanvas, position, null, out pointer) &&
@@ -101,4 +105,12 @@ public class EasyDraw : MonoBehaviour
         }
     }
 
+    //[DllImport("__Internal")]
+    //private static extern void DownloadFile(byte[] array, int byteLength, string fileName);
+ 
+    public void SaveDrawing()
+    {
+        //byte[] textureBytes = canvas.EncodeToJPG();
+        //DownloadFile(textureBytes, textureBytes.Length, "image.jpg");
+    }
 }

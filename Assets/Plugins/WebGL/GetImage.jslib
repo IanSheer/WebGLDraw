@@ -113,8 +113,8 @@ var getImage = {
           // clicking cancel or outside cancels
           //var cancel = g.root.querySelector("a");  // there's only one
           //cancel.addEventListener('click', handleCancel);
-          var getImage = g.root.querySelector(".getimage");
-          getImage.addEventListener('click', handleCancel);
+          //var getImage = g.root.querySelector(".getimage");
+          //getImage.addEventListener('click', handleCancel);
 
           // remember the original style
           g.rootDisplayStyle = g.root.style.display;
